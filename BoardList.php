@@ -22,8 +22,8 @@ try
     $db = mysqli_connect("localhost", "root", "root", "minbeom");
     mysqli_query($db,"set names utf8mb4");
 
-    $result = mysqli_query($db, 'SELECT * FROM BoardTable');
-
+    $result = mysqli_query($db, 'SELECT B.UserName,B.Image,A.* FROM BoardTable AS A JOIN User AS B ON A.userseq = B.userseq');
+    
     $rows = array();
 
     while($r = mysqli_fetch_assoc($result)) {

@@ -1,10 +1,8 @@
 <?php
 
-$boardtitle = $_POST['boardtitle'];
-$boardcontent = $_POST['boardcontent'];
-$boardseq = $_POST['boardseq'];
-
-
+$UserName = $_POST['UserName'];
+$Email = $_POST['Email'];
+$Password = $_POST['Password'];
 
 
 // Allow from any origin
@@ -36,7 +34,7 @@ try
         $status = "success";
     }
 
-    $json = array("boardseq"=> $boardseq,"boardtitle"=> $boardtitle,"boardcontent"=> addslashes($boardcontent));
+    $json = array("UserName"=> $UserName,"Email"=> $Email,"Password"=> $Password);
     //[{"boardTitle":"2020-01-01","boardContent":"fdsfds"}] addslashes($detail)
     $json1 = json_encode($json,JSON_UNESCAPED_UNICODE);
     
@@ -46,13 +44,12 @@ try
     // echo 'console.log('.$start.')';
     //
     //CALL SetCalendar('[{"start":"2020-01-02","title":"1213"}]',@Status,@Msg,@Message);
-    $result = mysqli_query($db, "CALL SetBoard('[".$json1."]')");    
-    $success = array("result1"=> "success");
-    $fail = array("result1"=> mysqli_error($db));
-
+    $result = mysqli_query($db, "CALL SetSignUp('[".$json1."]')");    
+    $success = array("result"=> true);
+    $fail = array("result"=> false, "message" =>mysqli_error($db));
 
     if($result){
-        echo json_encode($json1);
+        echo json_encode($success);
     }
     else{
         echo json_encode($fail);
