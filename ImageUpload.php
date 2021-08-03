@@ -1,5 +1,6 @@
 <?php
 
+    
     // Allow from any origin
     if (isset($_SERVER['HTTP_ORIGIN'])) {
         header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
@@ -19,13 +20,13 @@
 
     try
     {
+
         $file_name = $_FILES['image']['name'];
         $tmp_file= $_FILES['image']['tmp_name'];
         $file_path = $_SERVER['DOCUMENT_ROOT'].'/uploads/'.$file_name;
         //$r = move_uploaded_file($tmp_file, $file_path);
         // $tmp_dir = ini_get('upload_tmp_dir') ? ini_get('upload_tmp_dir') : sys_get_temp_dir();
         // die($tmp_dir);
-
         if(move_uploaded_file($tmp_file, $file_path))
         {
             $success = array("url"=> "http://49.168.71.214:8000/uploads/".$file_name);
