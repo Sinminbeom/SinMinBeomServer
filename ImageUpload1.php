@@ -28,6 +28,7 @@
         $client->setAuthConfig('credentials.json');
         $client->setAccessType('offline');
         $client->setPrompt('select_account consent');
+        
         // Load previously authorized token from a file, if it exists.
         // The file token.json stores the user's access and refresh tokens, and is
         // created automatically when the authorization flow completes for the first
@@ -72,14 +73,14 @@
         $file = new Google_Service_Drive_DriveFile();
         $file->setName($filename);
         // $file->setTitle($filename);
-        // $file->setMimeType('image/jpeg');
+        $file->setMimeType('image/jpeg');
 
         // Set the parent folder.
-        // if ($parentId != null) {
-        //   $parent = new Google_Service_Drive_ParentReference();
-        //   $parent->setId($parentId);
-        //   $file->setParents(array($parent));
-        // }
+        if ($parentId != null) {
+          $parent = new Google_Service_Drive_ParentReference();
+          $parent->setId($parentId);
+          $file->setParents(array($parent));
+        }
       
         try {
         //   $data = file_get_contents($filename);
