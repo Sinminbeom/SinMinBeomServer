@@ -70,17 +70,14 @@
     }
 
     function insertFile($service, $parentId, $filename, $file_path) {
-        $file = new Google_Service_Drive_DriveFile();
-        $file->setName($filename);
-        // $file->setTitle($filename);
-        $file->setMimeType('image/jpeg');
-
-        // Set the parent folder.
-        if ($parentId != null) {
-          $parent = new Google_Service_Drive_ParentReference();
-          $parent->setId($parentId);
-          $file->setParents(array($parent));
-        }
+        $fileMetadata = new Google_Service_Drive_DriveFile(array('name' => 'filename.jpg'));
+        $content = file_get_contents('filename.jpg');
+        $file = $service->files->create($fileMetadata, array(
+            'data' => $content,
+            'mimeType' => 'image/jpeg',
+            'uploadType' => 'media',
+            'fields' => 'id'));
+        printf("File ID: %s\n", $file->id);
       
         try {
         //   $data = file_get_contents($filename);
