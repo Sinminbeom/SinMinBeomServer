@@ -78,7 +78,7 @@
             'uploadType' => 'media',
             'fields' => '*')); //모두 file 속성들 가져오기
         //printf("File ID: %s\n", $file->id);
-        echo $file->webViewLink;
+        return 'https://drive.google.com/uc?id='.$file->id;
         
     }
       
@@ -97,10 +97,11 @@
         $folder_id = '1aXQva8IcMGybJFP_ILN8Sskcku0A0eOJ';
         if(move_uploaded_file($tmp_file, $file_path))
         {
-            $success = array("url"=> "http://49.168.71.214:8000/uploads/".$file_name);
+            //$success = array("url"=> "http://49.168.71.214:8000/uploads/".$file_name);
 
-            insertFile($service,$folder_id,$file_name,$file_path);
-
+            $result = insertFile($service,$folder_id,$file_name,$file_path);
+            $success = array("url"=> $result);
+            echo json_encode($success);
         }
         else
         {
