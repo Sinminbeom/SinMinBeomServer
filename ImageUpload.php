@@ -76,8 +76,9 @@
             'data' => $content,
             'mimeType' => 'image/jpeg',
             'uploadType' => 'media',
-            'fields' => 'id'));
-        printf("File ID: %s\n", $file->id);
+            'fields' => '*')); //모두 file 속성들 가져오기
+        //printf("File ID: %s\n", $file->id);
+        echo $file->webViewLink;
         
     }
       
