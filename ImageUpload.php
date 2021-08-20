@@ -78,7 +78,8 @@
             'uploadType' => 'media',
             'fields' => '*')); //모두 file 속성들 가져오기
         //printf("File ID: %s\n", $file->id);
-        return 'https://drive.google.com/uc?id='.$file->id;
+        return 'https://drive.google.com/uc?export=view&id='.$file->id;
+        
         
     }
       
@@ -89,6 +90,8 @@
         $service = new Google_Service_Drive($client);
 
         $file_name = $_FILES['image']['name'];
+        $file_name = preg_replace("/\s+/", "", $file_name);
+        
         $tmp_file= $_FILES['image']['tmp_name'];
         $file_path = $_SERVER['DOCUMENT_ROOT'].'/uploads/'.$file_name;
         //$r = move_uploaded_file($tmp_file, $file_path);
